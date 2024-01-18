@@ -14,13 +14,22 @@ public:
 	Man() {
 	}
 };
+class Man2 : public Man {
+public:
+	int i;
+	Man2() {
+	}
+};
 int main()
 {
 	//Создание объектов структуры
-	Man* a,* b;
-	a = new Man[4];
+	Man* a[4], * b;
+	a[0] = new Man;
+	a[1] = new Man2;
+	a[2] = new Man;
+	a[3] = new Man;
+	a[1]->age = 8;
 	b = new Man[4];
-	a[1].age = 8;
 	//Запись в объект A
 	//информации, полученной с клавиатуры
 	//открытие файла на запись
