@@ -5,37 +5,45 @@ using namespace std;
 #pragma warning(disable : 4996)
 //структура, хранящая
 //информацию о человеке
-struct Man {
+class Man {
+public:
 	//Имя
-	char str[255];
+	char str[255] = "hello";
 	//Возраст
-	int age;
+	int age = 0;
+	Man() {
+	}
 };
 int main()
 {
 	//Создание объектов структуры
-	Man A, B;
+	Man* a,* b;
+	a = new Man[4];
+	b = new Man[4];
+	a[1].age = 8;
 	//Запись в объект A
 	//информации, полученной с клавиатуры
-	cout << "\nEnter name:\n";
-	cin >> A.str;
-	cout << "\nEnter age:\n";
-	cin >> A.age;
-
 	//открытие файла на запись
-	FILE* f = fopen("Test.txt", "w+");
+	FILE* f = fopen("Test.txt", "a+");
 	if (!f) exit(0);
 	//запись объекта А в файл
-	fwrite(&A, sizeof(Man), 1, f);
+	for (size_t i = 0; i < 4; i++)
+	{
+		fwrite(&a[i], sizeof(Man), 1, f);
+	}
+	
 		fclose(f);
 	//открытие файла на чтение
 	f = fopen("Test.txt", "r+");
 	if (!f) exit(0);
 	//считывание содержимого файла
 	//в объект B
-	fread(&B, sizeof(Man), 1, f);
+	for (size_t i = 0; i < 4; i++)
+	{
+		fread(&b[i], sizeof(Man), 1, f);
+	}
 	//открытие файла на запись
 	fclose(f);
 	//показ результата на экран
-	cout << "\nName — " << B.str << "\n\nAge — " << B.age << "\n\n";
+	cout << "\nName - " << b[0].str << "\n\nAge - " << b[1].age << "\n\n";
 }
